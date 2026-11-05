@@ -15,7 +15,7 @@
 - ถ้าเชื่อมไม่สำเร็จ แอปบอกขั้นถัดไป เช่น ดับสวิตช์แล้วเปิดใหม่ แล้วเปิดหน้า MotoPlay ค้างไว้
 - ปรับภาษาไทยหรืออังกฤษในแอป ตัวอักษรไทยใช้ Noto Sans Thai
 - หน้าแรกมีรูปรถ ปุ่ม **ฉายหน้าจอ / นำทาง** และสถานะการเชื่อมจริง ภาษาอยู่ที่เมนูเพิ่มเติม
-- ปุ่มใหญ่จับถนัดแม้ใส่ถุงมือ พื้นหลังดำ ปุ่มไล่สีเขียวมินต์
+- ปุ่มใหญ่จับถนัดแม้ใส่ถุงมือ พื้นหลังดำ ปุ่มแดง Netflix (#E50914)
 - บันทึกทริป จุดจอดรถ บำรุงรักษา และแอป Wear OS ตามของต้นทาง
 
 พฤติกรรมการคุยกับหน้าปัด (โปรโตคอล) ไม่ได้ถูกเปลี่ยนจากต้นทาง
@@ -80,7 +80,7 @@ The phone language is used by default. An in-app picker can force **ไทย**,
 - Wireless projection to EasyConn / Carbit / MotoPlay dashes
 - Four-step connection status: Wi-Fi joined, dashboard found, linking, streaming
 - Next-step errors (restart the ignition, leave MotoPlay open, start the Android Auto head unit server)
-- Large glove-friendly controls and a dark mint smart-home look
+- Large glove-friendly controls on a black screen with a Netflix-red (#E50914) accent
 - Trip log, parking spot, maintenance, and the Wear OS app from upstream
 - Dash protocol behaviour is unchanged
 

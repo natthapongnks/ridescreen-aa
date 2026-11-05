@@ -1451,8 +1451,8 @@ class MainActivity : AppCompatActivity() {
             gravity = android.view.Gravity.CENTER
             background = android.graphics.drawable.GradientDrawable().apply {
                 shape = android.graphics.drawable.GradientDrawable.OVAL
-                setColor(0x333DFF9A)
-                setStroke((1.5f * dp).toInt(), 0xFF3DFF9A.toInt())
+                setColor(0x33E50914)
+                setStroke((1.5f * dp).toInt(), 0xFFE50914.toInt())
             }
         }
         val size = ((if (big) 42 else 46) * dp).toInt()
@@ -1488,7 +1488,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupHomeTiles() {
         findViewById<View>(R.id.btn_trips_list)?.setBackgroundResource(R.drawable.bg_quick_mint)
-        buildTile(R.id.btn_trips_list, "🏍️", 0xFF3DFF9A.toInt(), getString(R.string.home_tile_trips))
+        buildTile(R.id.btn_trips_list, "🏍️", 0xFFE50914.toInt(), getString(R.string.home_tile_trips))
         findViewById<android.widget.LinearLayout>(R.id.btn_trips_list)?.let { tile ->
             val ink = ContextCompat.getColor(this, R.color.on_brand)
             for (i in 0 until tile.childCount) {
@@ -1498,12 +1498,12 @@ class MainActivity : AppCompatActivity() {
         buildTile(R.id.btn_fuel, "⛽", 0xFFE5774E.toInt(), getString(R.string.home_tile_fuel), getString(R.string.home_tile_fuel_sub))
         buildTile(R.id.btn_maint, "🔧", 0xFF4FB6A6.toInt(), getString(R.string.home_tile_maint))
         buildTile(R.id.btn_traffic_lights, "🚦", 0xFFE05A5A.toInt(), getString(R.string.home_tile_tl))
-        buildTile(R.id.btn_live, "📍", 0xFF5FD07A.toInt(), getString(R.string.home_tile_live))
+        buildTile(R.id.btn_live, "📍", 0xFFE50914.toInt(), getString(R.string.home_tile_live))
         buildTile(R.id.btn_help, "❓", 0xFFA98BE0.toInt(), getString(R.string.home_tile_help), getString(R.string.home_tile_help_sub))
         buildTile(R.id.btn_park_photo, "📸", 0xFFD1A955.toInt(), getString(R.string.home_big_park), getString(R.string.home_big_park_sub), big = true)
         buildTile(R.id.btn_controls, "🎮", 0xFF5B8DEF.toInt(), getString(R.string.controls_controls), getString(R.string.home_big_controls_sub), big = true)
         buildTile(R.id.btn_hud_view, "🖥️", 0xFF4FB6A6.toInt(), getString(R.string.hud_dash_view), getString(R.string.home_big_hud_sub), big = true)
-        buildTile(R.id.btn_trip, "⏱️", 0xFF5FD07A.toInt(), getString(R.string.home_big_trip), getString(R.string.home_big_trip_sub), big = true)
+        buildTile(R.id.btn_trip, "⏱️", 0xFFE50914.toInt(), getString(R.string.home_big_trip), getString(R.string.home_big_trip_sub), big = true)
         findViewById<View>(R.id.btn_traffic_lights)?.setOnClickListener { startActivity(Intent(this, TrafficLightsActivity::class.java)) }
         findViewById<View>(R.id.parked_walk)?.setOnClickListener {
             val spot = Parking.get(this) ?: return@setOnClickListener
@@ -1572,7 +1572,7 @@ class MainActivity : AppCompatActivity() {
             else v.setPadding((6 * dp).toInt(), (14 * dp).toInt(), (6 * dp).toInt(), (12 * dp).toInt())
         }
         style(liveTile, big); style(controls, !big)
-        buildTile(R.id.btn_live, "📍", 0xFF5FD07A.toInt(), getString(R.string.home_tile_live), big = big)
+        buildTile(R.id.btn_live, "📍", 0xFFE50914.toInt(), getString(R.string.home_tile_live), big = big)
         buildTile(R.id.btn_controls, "🎮", 0xFF5B8DEF.toInt(), getString(R.string.controls_controls),
             getString(R.string.home_big_controls_sub), big = !big)
         controls.setOnClickListener { startActivity(Intent(this, ControlsActivity::class.java)) }

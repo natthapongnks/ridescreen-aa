@@ -26,11 +26,11 @@ class ConnectionRingView @JvmOverloads constructor(
     private var failed = false
     private var netflixRed = false
     private val mint = intArrayOf(
-        0xFF0B6B45.toInt(),
-        0xFF1FA971.toInt(),
-        0xFFB6FFD8.toInt(),
-        0xFF3DFF9A.toInt(),
-        0xFF0B6B45.toInt(),
+        0xFF6B0610.toInt(),
+        0xFFE50914.toInt(),
+        0xFFFF6B6B.toInt(),
+        0xFFE50914.toInt(),
+        0xFF6B0610.toInt(),
     )
     private val errorSweep = intArrayOf(
         0xFF8A3030.toInt(),
