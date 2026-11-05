@@ -5,10 +5,11 @@ package dev.zanderp.opencfmoto
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 
-/** Short branded intro. Skipped after the first completed play. Tap to skip. */
+/** ~1.8s MTL mark: pulse, light wipe, then fade into home. Tap to skip. Later launches skip it. */
 class SplashActivity : AppCompatActivity() {
 
     private val prefs by lazy { getSharedPreferences("mtl_splash", MODE_PRIVATE) }
@@ -21,26 +22,34 @@ class SplashActivity : AppCompatActivity() {
             return
         }
         setContentView(R.layout.activity_splash)
-        val root = findViewById<android.view.View>(R.id.splash_root)
+        val root = findViewById<View>(R.id.splash_root)
+        val mark = findViewById<View>(R.id.splash_mark)
         val ring = findViewById<ConnectionRingView>(R.id.splash_ring)
-        val word = findViewById<android.view.View>(R.id.splash_word)
-        ring.setFraction(0.15f)
-        ring.animate().scaleX(1.08f).scaleY(1.08f).setDuration(900)
-            .setInterpolator(AccelerateDecelerateInterpolator()).withEndAction {
-                ring.animate().scaleX(1f).scaleY(1f).setDuration(700).start()
+        val wipe = findViewById<View>(R.id.splash_wipe)
+        val sub = findViewById<View>(R.id.splash_sub)
+        ring.setFraction(0.85f)
+        mark.scaleX = 0.72f
+        mark.scaleY = 0.72f
+        mark.alpha = 0f
+        mark.animate().scaleX(1.06f).scaleY(1.06f).alpha(1f).setDuration(560)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .withEndAction {
+                mark.animate().scaleX(1f).scaleY(1f).setDuration(500).start()
             }.start()
-        word.alpha = 0f
-        word.animate().alpha(1f).setDuration(700).start()
+        wipe.translationX = 180f * resources.displayMetrics.density
+        wipe.animate().translationX(-180f * resources.displayMetrics.density).alpha(0.2f)
+            .setStartDelay(150).setDuration(1200).start()
+        sub.animate().alpha(1f).translationY(0f).setStartDelay(550).setDuration(480).start()
         root.setOnClickListener { finishSplash() }
-        root.postDelayed({ finishSplash() }, 2000)
+        root.postDelayed({ finishSplash() }, 1800)
     }
 
     private fun finishSplash() {
         if (gone) return
         gone = true
         prefs.edit().putBoolean(KEY_SEEN, true).apply()
-        val root = findViewById<android.view.View?>(R.id.splash_root) ?: run { openHome(); return }
-        root.animate().alpha(0f).setDuration(280).withEndAction { openHome() }.start()
+        val root = findViewById<View?>(R.id.splash_root) ?: run { openHome(); return }
+        root.animate().alpha(0f).setDuration(420).withEndAction { openHome() }.start()
     }
 
     private fun openHome() {

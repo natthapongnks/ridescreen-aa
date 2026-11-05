@@ -3,32 +3,47 @@
     android:id="@+id/splash_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_screen"
+    android:background="#FF000000"
     android:clickable="true"
     android:focusable="true">
 
-    <dev.zanderp.opencfmoto.ConnectionRingView
-        android:id="@+id/splash_ring"
+    <FrameLayout
+        android:id="@+id/splash_mark"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center">
+
+        <dev.zanderp.opencfmoto.ConnectionRingView
+            android:id="@+id/splash_ring"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/splash_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/archivo_black"
+            android:text="@string/app_name"
+            android:textColor="@color/brand_orange"
+            android:textSize="42sp" />
+
+        <View
+            android:id="@+id/splash_wipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_splash_wipe" />
+    </FrameLayout>
 
     <TextView
-        android:id="@+id/splash_word"
+        android:id="@+id/splash_sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/archivo_black"
-        android:text="@string/app_name"
-        android:textColor="@color/brand_orange"
-        android:textSize="42sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="160dp"
+        android:alpha="0"
+        android:letterSpacing="0.12"
         android:text="@string/app_full_name"
-        android:textColor="@color/text_secondary"
+        android:textColor="@color/text_primary"
         android:textSize="16sp" />
 </FrameLayout>

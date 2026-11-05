@@ -1651,16 +1651,14 @@ class MainActivity : AppCompatActivity() {
         val now = System.currentTimeMillis()
         val fresh = r != null && now - r.atMs <= 10 * 60_000L && (r.volts != null || r.locked != null)
         val voltsNow = if (fresh) r?.volts else null
-        findViewById<TextView?>(R.id.zontes_voltage)?.text =
-            if (voltsNow != null) getString(R.string.zontes_voltage, voltsNow)
-            else getString(R.string.zontes_voltage_empty)
-        val locked = if (fresh) r?.locked else null
-        findViewById<TextView?>(R.id.zontes_lock)?.setBackgroundResource(
-            if (locked == true) R.drawable.bg_pill_gradient else R.drawable.bg_action_outline,
-        )
-        findViewById<TextView?>(R.id.zontes_unlock)?.setBackgroundResource(
-            if (locked == false) R.drawable.bg_pill_gradient else R.drawable.bg_action_outline,
-        )
+        findViewById<TextView?>(R.id.zontes_voltage)?.apply {
+            if (voltsNow != null) {
+                text = getString(R.string.zontes_voltage, voltsNow)
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
+            }
+        }
         if (!fresh || r == null) {
             card.visibility = View.GONE
             return
@@ -1801,73 +1799,39 @@ class MainActivity : AppCompatActivity() {
     private fun wireZontesHome() {
         findViewById<View>(R.id.btn_screen_mirror).setOnClickListener { connectBtn.performClick() }
         findViewById<View>(R.id.zontes_more).setOnClickListener { showZontesMore() }
-        findViewById<View>(R.id.zontes_fuel).setOnClickListener { FuelActivity.start(this) }
-        findViewById<View>(R.id.zontes_dashcam).setOnClickListener {
-            startActivity(Intent(this, BlackBoxActivity::class.java))
-        }
-        findViewById<View>(R.id.zontes_renew).setOnClickListener { checkUpdateManual() }
-        findViewById<View>(R.id.zontes_seat).setOnClickListener {
-            Toast.makeText(this, R.string.zontes_seat_note, Toast.LENGTH_LONG).show()
-        }
-        val lockTap = View.OnClickListener {
-            pkeRefresh()
-            val state = PkeBattery.last(this)?.locked
-            val label = when (state) {
-                true -> getString(R.string.zontes_state_locked)
-                false -> getString(R.string.zontes_state_unlocked)
-                null -> getString(R.string.zontes_state_unknown)
-            }
-            Toast.makeText(this, getString(R.string.zontes_lock_status, label), Toast.LENGTH_LONG).show()
-        }
-        findViewById<View>(R.id.zontes_lock).setOnClickListener(lockTap)
-        findViewById<View>(R.id.zontes_unlock).setOnClickListener(lockTap)
-        findViewById<View>(R.id.tab_vehicle).setOnClickListener { showVehiclePage(true) }
-        findViewById<View>(R.id.tab_account).setOnClickListener { showVehiclePage(false) }
         renderPkeCard()
-        refreshBtChip()
-    }
-
-    private fun showVehiclePage(vehicle: Boolean) {
-        findViewById<View>(R.id.vehicle_page).visibility = if (vehicle) View.VISIBLE else View.GONE
-        findViewById<View>(R.id.main_scroll).visibility = if (vehicle) View.GONE else View.VISIBLE
-        findViewById<TextView>(R.id.tab_vehicle).setTextColor(ContextCompat.getColor(
-            this, if (vehicle) R.color.brand_orange else R.color.text_secondary,
-        ))
-        findViewById<TextView>(R.id.tab_account).setTextColor(ContextCompat.getColor(
-            this, if (vehicle) R.color.text_secondary else R.color.brand_orange,
-        ))
+        refreshBtChip(ConnectionState.phase)
     }
 
     private fun showZontesMore() {
         val labels = arrayOf(
+            getString(R.string.lang_title),
+            getString(R.string.help_about),
+            getString(R.string.nav_settings),
             getString(R.string.nav_trips),
             getString(R.string.nav_garage),
-            getString(R.string.nav_settings),
-            getString(R.string.lang_title),
-            getString(R.string.home_tile_help),
         )
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle(R.string.zontes_more)
             .setItems(labels) { _, which ->
                 when (which) {
-                    0 -> findViewById<View>(R.id.btn_trips_list).performClick()
-                    1 -> findViewById<View>(R.id.btn_devices).performClick()
+                    0 -> findViewById<View>(R.id.btn_language).performClick()
+                    1 -> AboutActivity.start(this)
                     2 -> findViewById<View>(R.id.btn_setup).performClick()
-                    3 -> findViewById<View>(R.id.btn_language).performClick()
-                    else -> findViewById<View>(R.id.btn_help).performClick()
+                    3 -> findViewById<View>(R.id.btn_trips_list).performClick()
+                    else -> findViewById<View>(R.id.btn_devices).performClick()
                 }
             }
             .show()
     }
 
-    private fun refreshBtChip() {
-        val on = try {
-            val mgr = getSystemService(android.bluetooth.BluetoothManager::class.java)
-            mgr?.adapter?.isEnabled == true
-        } catch (_: SecurityException) {
-            false
-        }
-        findViewById<android.widget.ImageView?>(R.id.zontes_bt)?.alpha = if (on) 1f else 0.35f
+    private fun refreshBtChip(phase: Phase) {
+        val linked = phase == Phase.JOINING_WIFI || phase == Phase.PXC_CONNECTING ||
+            phase == Phase.AA_VIDEO_LIVE || phase == Phase.STREAMING || phase == Phase.MIRRORING ||
+            phase == Phase.RECONNECTING
+        val icon = findViewById<android.widget.ImageView?>(R.id.zontes_bt) ?: return
+        icon.setColorFilter(ContextCompat.getColor(this, if (linked) R.color.brand_orange else R.color.text_secondary))
+        icon.alpha = if (linked || phase.busy) 1f else 0.45f
     }
 
     /** Mint-to-emerald fill. Material's tint would flatten this back to a solid color. */
@@ -1986,21 +1950,18 @@ class MainActivity : AppCompatActivity() {
             },
         )
         applyConnectGradient()
+        findViewById<TextView?>(R.id.zontes_conn)?.text = title
+        findViewById<TextView?>(R.id.zontes_hint)?.text = statusHint.text
         findViewById<TextView?>(R.id.btn_screen_mirror)?.apply {
             text = if (phase.busy || phase == Phase.STREAMING || phase == Phase.MIRRORING) {
                 getString(R.string.main_stop)
             } else {
                 getString(R.string.zontes_mirror)
             }
-            setBackgroundResource(
-                if (phase == Phase.STREAMING || phase == Phase.MIRRORING) R.drawable.bg_pill_gradient
-                else R.drawable.bg_action_outline,
-            )
-            setTextColor(ContextCompat.getColor(
-                this@MainActivity,
-                if (phase == Phase.STREAMING || phase == Phase.MIRRORING) R.color.on_brand else R.color.text_primary,
-            ))
+            setBackgroundResource(R.drawable.bg_pill_gradient)
+            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.on_brand))
         }
+        refreshBtChip(phase)
         updateButtonStates(phase)
     }
 
