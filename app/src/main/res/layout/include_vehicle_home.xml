@@ -1,116 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/vehicle_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF000000"
-    android:orientation="vertical"
-    android:paddingStart="16dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="12dp">
+    android:background="@drawable/bg_vignette">
+
+    <ImageView
+        android:id="@+id/zontes_hero"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_full_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/zontes_hero" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_hero_fade" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="56dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/archivo_black"
-            android:text="@string/app_name"
-            android:textColor="@color/brand_orange"
-            android:textSize="28sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/zontes_voltage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/zontes_conn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/conn_ready"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/zontes_bt"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="@string/zontes_bt_desc"
-            android:padding="12dp"
-            android:src="@drawable/ic_bluetooth" />
-
-        <TextView
-            android:id="@+id/zontes_more"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:gravity="center"
-            android:minWidth="72dp"
-            android:paddingHorizontal="8dp"
-            android:text="@string/zontes_more"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/zontes_hero"
+            android:id="@+id/zontes_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/app_full_name"
-            android:scaleType="centerCrop"
-            android:src="@drawable/zontes_hero" />
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="56dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/archivo_black"
+                android:letterSpacing="0.04"
+                android:text="@string/app_name"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/zontes_bt"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/zontes_bt_desc"
+                android:padding="12dp"
+                android:src="@drawable/ic_bluetooth" />
+
+            <TextView
+                android:id="@+id/zontes_more"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:gravity="center"
+                android:minWidth="72dp"
+                android:paddingHorizontal="8dp"
+                android:text="@string/zontes_more"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bg_hero_fade" />
-    </FrameLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/zontes_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:lineSpacingMultiplier="1.15"
-        android:text="@string/hint_idle"
-        android:textColor="@color/text_secondary"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/zontes_voltage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/btn_screen_mirror"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_pill_gradient"
-        android:gravity="center"
-        android:minHeight="72dp"
-        android:paddingHorizontal="16dp"
-        android:text="@string/zontes_mirror"
-        android:textColor="@color/on_brand"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/zontes_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/archivo_black"
+            android:letterSpacing="0.02"
+            android:text="@string/app_full_name"
+            android:textColor="@color/text_primary"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/zontes_conn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/conn_ready"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/zontes_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingMultiplier="1.1"
+            android:maxLines="3"
+            android:text="@string/hint_idle"
+            android:textColor="#B3B3B3"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btn_screen_mirror"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_pill_gradient"
+            android:gravity="center"
+            android:minHeight="64dp"
+            android:paddingHorizontal="20dp"
+            android:text="@string/zontes_mirror"
+            android:textColor="@color/on_brand"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</FrameLayout>

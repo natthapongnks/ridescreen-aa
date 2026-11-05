@@ -1797,10 +1797,47 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun wireZontesHome() {
-        findViewById<View>(R.id.btn_screen_mirror).setOnClickListener { connectBtn.performClick() }
+        val cta = findViewById<View>(R.id.btn_screen_mirror)
+        cta.setOnClickListener { connectBtn.performClick() }
+        cta.setOnTouchListener { v, event ->
+            when (event.actionMasked) {
+                android.view.MotionEvent.ACTION_DOWN -> v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(120).start()
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL ->
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(160).start()
+            }
+            false
+        }
         findViewById<View>(R.id.zontes_more).setOnClickListener { showZontesMore() }
         renderPkeCard()
         refreshBtChip(ConnectionState.phase)
+        playHomeEnter()
+    }
+
+    /** Poster scale-in, then title, status, and the primary button fade up. */
+    private fun playHomeEnter() {
+        val hero = findViewById<View>(R.id.zontes_hero)
+        hero.scaleX = 1.08f
+        hero.scaleY = 1.08f
+        hero.animate().scaleX(1f).scaleY(1f).setDuration(2200)
+            .setInterpolator(android.view.animation.DecelerateInterpolator()).start()
+        listOf(R.id.zontes_title, R.id.zontes_conn, R.id.zontes_hint, R.id.btn_screen_mirror)
+            .forEachIndexed { i, id ->
+                findViewById<View>(id).apply {
+                    alpha = 0f
+                    translationY = 18f * resources.displayMetrics.density
+                    animate().alpha(1f).translationY(0f).setStartDelay(120L * i).setDuration(420).start()
+                }
+            }
+    }
+
+    private fun crossfadeText(view: TextView?, next: CharSequence) {
+        if (view == null) return
+        if (view.text == next) return
+        view.animate().cancel()
+        view.animate().alpha(0f).setDuration(120).withEndAction {
+            view.text = next
+            view.animate().alpha(1f).setDuration(220).start()
+        }.start()
     }
 
     private fun showZontesMore() {
@@ -1950,8 +1987,8 @@ class MainActivity : AppCompatActivity() {
             },
         )
         applyConnectGradient()
-        findViewById<TextView?>(R.id.zontes_conn)?.text = title
-        findViewById<TextView?>(R.id.zontes_hint)?.text = statusHint.text
+        crossfadeText(findViewById(R.id.zontes_conn), title)
+        crossfadeText(findViewById(R.id.zontes_hint), statusHint.text)
         findViewById<TextView?>(R.id.btn_screen_mirror)?.apply {
             text = if (phase.busy || phase == Phase.STREAMING || phase == Phase.MIRRORING) {
                 getString(R.string.main_stop)
