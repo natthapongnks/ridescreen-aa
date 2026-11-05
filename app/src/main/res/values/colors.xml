@@ -9,7 +9,11 @@
     <color name="on_brand">#04140C</color>
     <color name="brand_gold">#7DFFC3</color>
 
-    <color name="bg">#FF000000</color>
+    <color name="bg">#FF141414</color>
+    <color name="nf_red">#FFE50914</color>
+    <color name="nf_red_press">#FFB20710</color>
+    <color name="nf_text">#FFFFFFFF</color>
+    <color name="nf_muted">#FFB3B3B3</color>
     <color name="surface">#121816</color>
     <color name="surface_high">#1C2621</color>
     <color name="outline">#2A4034</color>

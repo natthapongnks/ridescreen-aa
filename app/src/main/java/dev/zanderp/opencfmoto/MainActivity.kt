@@ -1867,7 +1867,7 @@ class MainActivity : AppCompatActivity() {
             phase == Phase.AA_VIDEO_LIVE || phase == Phase.STREAMING || phase == Phase.MIRRORING ||
             phase == Phase.RECONNECTING
         val icon = findViewById<android.widget.ImageView?>(R.id.zontes_bt) ?: return
-        icon.setColorFilter(ContextCompat.getColor(this, if (linked) R.color.brand_orange else R.color.text_secondary))
+        icon.setColorFilter(ContextCompat.getColor(this, if (linked) R.color.nf_red else R.color.nf_muted))
         icon.alpha = if (linked || phase.busy) 1f else 0.45f
     }
 
@@ -1875,12 +1875,12 @@ class MainActivity : AppCompatActivity() {
     private fun applyConnectGradient() {
         val btn = connectBtn as? com.google.android.material.button.MaterialButton ?: return
         btn.backgroundTintList = null
-        btn.background = ContextCompat.getDrawable(this, R.drawable.bg_pill_gradient)
-        btn.setTextColor(ContextCompat.getColor(this, R.color.on_brand))
-        btn.iconTint = android.content.res.ColorStateList.valueOf(ContextCompat.getColor(this, R.color.on_brand))
+        btn.background = ContextCompat.getDrawable(this, R.drawable.bg_nf_cta)
+        btn.setTextColor(ContextCompat.getColor(this, R.color.nf_text))
+        btn.iconTint = android.content.res.ColorStateList.valueOf(ContextCompat.getColor(this, R.color.nf_text))
         btn.elevation = 18f * resources.displayMetrics.density
         if (android.os.Build.VERSION.SDK_INT >= 28) {
-            val glow = 0xFF3DFF9A.toInt()
+            val glow = 0xFFE50914.toInt()
             btn.outlineAmbientShadowColor = glow
             btn.outlineSpotShadowColor = glow
         }
@@ -1987,6 +1987,16 @@ class MainActivity : AppCompatActivity() {
             },
         )
         applyConnectGradient()
+        findViewById<TextView?>(R.id.zontes_conn)?.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (phase == Phase.ERROR || phase.busy || phase == Phase.STREAMING || phase == Phase.MIRRORING) {
+                    R.color.nf_red
+                } else {
+                    R.color.nf_muted
+                },
+            ),
+        )
         crossfadeText(findViewById(R.id.zontes_conn), title)
         crossfadeText(findViewById(R.id.zontes_hint), statusHint.text)
         findViewById<TextView?>(R.id.btn_screen_mirror)?.apply {
@@ -1995,8 +2005,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 getString(R.string.zontes_mirror)
             }
-            setBackgroundResource(R.drawable.bg_pill_gradient)
-            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.on_brand))
+            setBackgroundResource(R.drawable.bg_nf_cta)
+            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.nf_text))
         }
         refreshBtChip(phase)
         updateButtonStates(phase)

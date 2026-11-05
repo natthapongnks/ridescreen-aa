@@ -27,6 +27,7 @@ class SplashActivity : AppCompatActivity() {
         val ring = findViewById<ConnectionRingView>(R.id.splash_ring)
         val wipe = findViewById<View>(R.id.splash_wipe)
         val sub = findViewById<View>(R.id.splash_sub)
+        ring.useNetflixRed()
         ring.setFraction(0.85f)
         mark.scaleX = 0.72f
         mark.scaleY = 0.72f
