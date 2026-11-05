@@ -55,6 +55,13 @@ class ConnectionRingView @JvmOverloads constructor(
         setLayerType(LAYER_TYPE_SOFTWARE, null)
     }
 
+    /** Splash pulse. Not a connection state. */
+    fun setFraction(fraction: Float) {
+        sweep = (fraction * 360f).coerceIn(8f, 360f)
+        if (width > 0) rebuildShader()
+        invalidate()
+    }
+
     fun setMarks(marks: List<ConnectionGuide.Mark>) {
         var units = 0f
         for (mark in marks) {

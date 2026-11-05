@@ -318,6 +318,26 @@
         <item name="android:maxHeight">8dp</item>
     </style>
 
+    <style name="ZontesAction">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">72dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_action_outline</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="ZontesAction.Wide">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">0</item>
+    </style>
+
     <style name="Widget.OpenCfMoto.Button.LangOption" parent="Widget.OpenCfMoto.Button.Tonal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

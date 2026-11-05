@@ -10,6 +10,24 @@
     <string name="nav_trips">Trips</string>
     <string name="nav_garage">Garage</string>
     <string name="nav_settings">Settings</string>
+    <string name="zontes_voltage_empty">--V</string>
+    <string name="zontes_voltage">%1$.1fV</string>
+    <string name="zontes_more">More</string>
+    <string name="zontes_lock">Lock</string>
+    <string name="zontes_unlock">Unlock</string>
+    <string name="zontes_fuel">Fuel tank</string>
+    <string name="zontes_seat">Seat</string>
+    <string name="zontes_mirror">Screen mirroring / Navigation</string>
+    <string name="zontes_renew">Renew</string>
+    <string name="zontes_dashcam">Dashcam</string>
+    <string name="zontes_vehicle">Vehicle</string>
+    <string name="zontes_account">My account</string>
+    <string name="zontes_bt_desc">Bluetooth</string>
+    <string name="zontes_lock_status">This app only reads the lock. It does not lock or unlock the bike. Status: %1$s</string>
+    <string name="zontes_state_locked">locked</string>
+    <string name="zontes_state_unlocked">unlocked</string>
+    <string name="zontes_state_unknown">unknown. Stay next to the bike and try again.</string>
+    <string name="zontes_seat_note">Opening the seat stays on the Zontes key. This app does not send that command.</string>
 
     <string name="step_wifi">Wi-Fi joined</string>
     <string name="step_dash">Dashboard found</string>
