@@ -129,7 +129,7 @@ class SpeedRingView @JvmOverloads constructor(
         private const val FULL_KMH = 140
         private const val RED_FROM_KMH = 120
         private val TICKS = intArrayOf(50, 90, 120)
-        private val GOLD = Color.parseColor("#D1A955")
+        private val GOLD = Color.parseColor("#E50914")
         private val GOLD_DIM = Color.parseColor("#80D1A955")
         private val RED = Color.parseColor("#E5484D")
     }

@@ -6,12 +6,7 @@
 
 ภาษาในแอปตามภาษามือถือ และมีตัวเลือกในแอปเป็น **ไทย / English / ตามระบบ**
 
-<p align="center">
-<img src="docs/screenshots/fork/home-th.png" width="220" alt="หน้าแรกภาษาไทย พร้อมวงสถานะการเชื่อมต่อ"/>
-<img src="docs/screenshots/fork/tiles-th.png" width="220" alt="ปุ่มลัดแบบการ์ด"/>
-<img src="docs/screenshots/fork/setup-th.png" width="220" alt="หน้าตั้งค่าภาษาไทย"/>
-<img src="docs/screenshots/fork/lang-th.png" width="220" alt="ตัวเลือกภาษา"/>
-</p>
+หน้าแรกเป็นโปสเตอร์รถบนพื้นดำ ชื่อ **MTL – MotoLink** สีขาว และปุ่ม **ฉายหน้าจอ / นำทาง** สีแดง ภาษาไทยหรืออังกฤษเลือกได้ที่เมนู **เพิ่มเติม**
 
 ## ทำอะไรได้
 
@@ -19,7 +14,8 @@
 - แสดงขั้นตอนเชื่อมต่อชัดเจน: **ต่อ Wi-Fi แล้ว → เจอหน้าปัด → กำลังจับคู่ → กำลังส่งภาพ**
 - ถ้าเชื่อมไม่สำเร็จ แอปบอกขั้นถัดไป เช่น ดับสวิตช์แล้วเปิดใหม่ แล้วเปิดหน้า MotoPlay ค้างไว้
 - ปรับภาษาไทยหรืออังกฤษในแอป ตัวอักษรไทยใช้ Noto Sans Thai
-- ปุ่มใหญ่จับถนัดแม้ใส่ถุงมือ ธีมมืดโทนเขียวมินต์
+- หน้าแรกมีรูปรถ ปุ่ม **ฉายหน้าจอ / นำทาง** และสถานะการเชื่อมจริง ภาษาอยู่ที่เมนูเพิ่มเติม
+- ปุ่มใหญ่จับถนัดแม้ใส่ถุงมือ พื้นหลังดำ ปุ่มแดง Netflix (#E50914)
 - บันทึกทริป จุดจอดรถ บำรุงรักษา และแอป Wear OS ตามของต้นทาง
 
 พฤติกรรมการคุยกับหน้าปัด (โปรโตคอล) ไม่ได้ถูกเปลี่ยนจากต้นทาง
@@ -33,7 +29,7 @@
 ## วิธีเชื่อมต่อ
 
 1. บน Zontes 368G V2 เปิดหน้า **MotoPlay** (หน้าจอที่มี QR) ค้างไว้
-2. ในแอป กด **เชื่อมต่อ** แล้วสแกน QR หรือใช้รถที่จำไว้แล้ว
+2. ในแอป กด **ฉายหน้าจอ / นำทาง** แล้วสแกน QR หรือใช้รถที่จำไว้แล้ว
 3. ให้มือถือเข้า **Wi-Fi ของรถ** เมื่อระบบถาม ให้กดเชื่อมต่อและอย่าปิดหน้าต่างนั้นค้าง
 4. ในแอป Android Auto เปิดเมนู ⋮ แล้ว **Start head unit server** (ครั้งแรกอาจต้องแตะ Version ประมาณ 10 ครั้งเพื่อปลดล็อกเมนูนักพัฒนา) จากนั้นกดเชื่อมต่ออีกครั้ง
 5. เมื่อวงสถานะครบและขึ้นว่ากำลังส่งภาพ เก็บมือถือได้
@@ -84,7 +80,7 @@ The phone language is used by default. An in-app picker can force **ไทย**,
 - Wireless projection to EasyConn / Carbit / MotoPlay dashes
 - Four-step connection status: Wi-Fi joined, dashboard found, linking, streaming
 - Next-step errors (restart the ignition, leave MotoPlay open, start the Android Auto head unit server)
-- Large glove-friendly controls and a dark mint smart-home look
+- Large glove-friendly controls on a black screen with a Netflix-red (#E50914) accent
 - Trip log, parking spot, maintenance, and the Wear OS app from upstream
 - Dash protocol behaviour is unchanged
 

@@ -10,6 +10,24 @@
     <string name="nav_trips">ทริป</string>
     <string name="nav_garage">โรงรถ</string>
     <string name="nav_settings">ตั้งค่า</string>
+    <string name="zontes_voltage_empty">--V</string>
+    <string name="zontes_voltage">%1$.1fV</string>
+    <string name="zontes_more">เพิ่มเติม</string>
+    <string name="zontes_lock">ล็อก</string>
+    <string name="zontes_unlock">ปลดล็อก</string>
+    <string name="zontes_fuel">ถังน้ำมัน</string>
+    <string name="zontes_seat">เบาะ</string>
+    <string name="zontes_mirror">ฉายหน้าจอ / นำทาง</string>
+    <string name="zontes_renew">ต่ออายุ</string>
+    <string name="zontes_dashcam">กล้องหน้ารถ</string>
+    <string name="zontes_vehicle">รถ</string>
+    <string name="zontes_account">บัญชีของฉัน</string>
+    <string name="zontes_bt_desc">บลูทูธ</string>
+    <string name="zontes_lock_status">แอปนี้อ่านสถานะล็อกอย่างเดียว ไม่ได้สั่งล็อกหรือปลดล็อก สถานะ: %1$s</string>
+    <string name="zontes_state_locked">ล็อกอยู่</string>
+    <string name="zontes_state_unlocked">ปลดล็อกอยู่</string>
+    <string name="zontes_state_unknown">ยังไม่ทราบ ยืนใกล้รถแล้วลองใหม่</string>
+    <string name="zontes_seat_note">การเปิดเบาะอยู่ที่กุญแจ Zontes แอปนี้ไม่ส่งคำสั่งนั้น</string>
 
     <string name="step_wifi">ต่อ Wi-Fi แล้ว</string>
     <string name="step_dash">เจอหน้าปัด</string>

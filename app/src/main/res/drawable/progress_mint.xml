@@ -3,14 +3,14 @@
     <item android:id="@android:id/background">
         <shape>
             <corners android:radius="8dp" />
-            <solid android:color="#1A2620" />
+            <solid android:color="#FF2A2A2A" />
         </shape>
     </item>
     <item android:id="@android:id/secondaryProgress">
         <scale android:scaleWidth="100%">
             <shape>
                 <corners android:radius="8dp" />
-                <solid android:color="#333DFF9A" />
+                <solid android:color="#66E50914" />
             </shape>
         </scale>
     </item>
@@ -18,12 +18,7 @@
         <scale android:scaleWidth="100%">
             <shape>
                 <corners android:radius="8dp" />
-                <gradient
-                    android:angle="0"
-                    android:centerColor="#3DFF9A"
-                    android:endColor="#0B6B45"
-                    android:startColor="#B6FFD8"
-                    android:type="linear" />
+                <solid android:color="#FFE50914" />
             </shape>
         </scale>
     </item>
