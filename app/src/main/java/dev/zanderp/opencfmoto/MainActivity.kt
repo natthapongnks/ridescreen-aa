@@ -801,6 +801,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.nav_settings).setOnClickListener {
             findViewById<View>(R.id.btn_setup).performClick()
         }
+        wireZontesHome()
         toggleLogBtn = findViewById(R.id.btn_toggle_log)
         logView.movementMethod = ScrollingMovementMethod()
 
@@ -1450,8 +1451,8 @@ class MainActivity : AppCompatActivity() {
             gravity = android.view.Gravity.CENTER
             background = android.graphics.drawable.GradientDrawable().apply {
                 shape = android.graphics.drawable.GradientDrawable.OVAL
-                setColor(0x333DFF9A)
-                setStroke((1.5f * dp).toInt(), 0xFF3DFF9A.toInt())
+                setColor(0x33E50914)
+                setStroke((1.5f * dp).toInt(), 0xFFE50914.toInt())
             }
         }
         val size = ((if (big) 42 else 46) * dp).toInt()
@@ -1487,7 +1488,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupHomeTiles() {
         findViewById<View>(R.id.btn_trips_list)?.setBackgroundResource(R.drawable.bg_quick_mint)
-        buildTile(R.id.btn_trips_list, "🏍️", 0xFF3DFF9A.toInt(), getString(R.string.home_tile_trips))
+        buildTile(R.id.btn_trips_list, "🏍️", 0xFFE50914.toInt(), getString(R.string.home_tile_trips))
         findViewById<android.widget.LinearLayout>(R.id.btn_trips_list)?.let { tile ->
             val ink = ContextCompat.getColor(this, R.color.on_brand)
             for (i in 0 until tile.childCount) {
@@ -1497,12 +1498,12 @@ class MainActivity : AppCompatActivity() {
         buildTile(R.id.btn_fuel, "⛽", 0xFFE5774E.toInt(), getString(R.string.home_tile_fuel), getString(R.string.home_tile_fuel_sub))
         buildTile(R.id.btn_maint, "🔧", 0xFF4FB6A6.toInt(), getString(R.string.home_tile_maint))
         buildTile(R.id.btn_traffic_lights, "🚦", 0xFFE05A5A.toInt(), getString(R.string.home_tile_tl))
-        buildTile(R.id.btn_live, "📍", 0xFF5FD07A.toInt(), getString(R.string.home_tile_live))
+        buildTile(R.id.btn_live, "📍", 0xFFE50914.toInt(), getString(R.string.home_tile_live))
         buildTile(R.id.btn_help, "❓", 0xFFA98BE0.toInt(), getString(R.string.home_tile_help), getString(R.string.home_tile_help_sub))
         buildTile(R.id.btn_park_photo, "📸", 0xFFD1A955.toInt(), getString(R.string.home_big_park), getString(R.string.home_big_park_sub), big = true)
         buildTile(R.id.btn_controls, "🎮", 0xFF5B8DEF.toInt(), getString(R.string.controls_controls), getString(R.string.home_big_controls_sub), big = true)
         buildTile(R.id.btn_hud_view, "🖥️", 0xFF4FB6A6.toInt(), getString(R.string.hud_dash_view), getString(R.string.home_big_hud_sub), big = true)
-        buildTile(R.id.btn_trip, "⏱️", 0xFF5FD07A.toInt(), getString(R.string.home_big_trip), getString(R.string.home_big_trip_sub), big = true)
+        buildTile(R.id.btn_trip, "⏱️", 0xFFE50914.toInt(), getString(R.string.home_big_trip), getString(R.string.home_big_trip_sub), big = true)
         findViewById<View>(R.id.btn_traffic_lights)?.setOnClickListener { startActivity(Intent(this, TrafficLightsActivity::class.java)) }
         findViewById<View>(R.id.parked_walk)?.setOnClickListener {
             val spot = Parking.get(this) ?: return@setOnClickListener
@@ -1571,7 +1572,7 @@ class MainActivity : AppCompatActivity() {
             else v.setPadding((6 * dp).toInt(), (14 * dp).toInt(), (6 * dp).toInt(), (12 * dp).toInt())
         }
         style(liveTile, big); style(controls, !big)
-        buildTile(R.id.btn_live, "📍", 0xFF5FD07A.toInt(), getString(R.string.home_tile_live), big = big)
+        buildTile(R.id.btn_live, "📍", 0xFFE50914.toInt(), getString(R.string.home_tile_live), big = big)
         buildTile(R.id.btn_controls, "🎮", 0xFF5B8DEF.toInt(), getString(R.string.controls_controls),
             getString(R.string.home_big_controls_sub), big = !big)
         controls.setOnClickListener { startActivity(Intent(this, ControlsActivity::class.java)) }
@@ -1648,7 +1649,17 @@ class MainActivity : AppCompatActivity() {
         val card = findViewById<View?>(R.id.pke_card) ?: return
         val r = if (PkeBattery.code(this).length >= 8) PkeBattery.last(this) else null
         val now = System.currentTimeMillis()
-        if (r == null || now - r.atMs > 10 * 60_000L || (r.volts == null && r.locked == null)) {
+        val fresh = r != null && now - r.atMs <= 10 * 60_000L && (r.volts != null || r.locked != null)
+        val voltsNow = if (fresh) r?.volts else null
+        findViewById<TextView?>(R.id.zontes_voltage)?.apply {
+            if (voltsNow != null) {
+                text = getString(R.string.zontes_voltage, voltsNow)
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
+            }
+        }
+        if (!fresh || r == null) {
             card.visibility = View.GONE
             return
         }
@@ -1785,16 +1796,91 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun wireZontesHome() {
+        val cta = findViewById<View>(R.id.btn_screen_mirror)
+        cta.setOnClickListener { connectBtn.performClick() }
+        cta.setOnTouchListener { v, event ->
+            when (event.actionMasked) {
+                android.view.MotionEvent.ACTION_DOWN -> v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(120).start()
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL ->
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(160).start()
+            }
+            false
+        }
+        findViewById<View>(R.id.zontes_more).setOnClickListener { showZontesMore() }
+        renderPkeCard()
+        refreshBtChip(ConnectionState.phase)
+        playHomeEnter()
+    }
+
+    /** Poster scale-in, then title, status, and the primary button fade up. */
+    private fun playHomeEnter() {
+        val hero = findViewById<View>(R.id.zontes_hero)
+        hero.scaleX = 1.08f
+        hero.scaleY = 1.08f
+        hero.animate().scaleX(1f).scaleY(1f).setDuration(2200)
+            .setInterpolator(android.view.animation.DecelerateInterpolator()).start()
+        listOf(R.id.zontes_title, R.id.zontes_conn, R.id.zontes_hint, R.id.btn_screen_mirror)
+            .forEachIndexed { i, id ->
+                findViewById<View>(id).apply {
+                    alpha = 0f
+                    translationY = 18f * resources.displayMetrics.density
+                    animate().alpha(1f).translationY(0f).setStartDelay(120L * i).setDuration(420).start()
+                }
+            }
+    }
+
+    private fun crossfadeText(view: TextView?, next: CharSequence) {
+        if (view == null) return
+        if (view.text == next) return
+        view.animate().cancel()
+        view.animate().alpha(0f).setDuration(120).withEndAction {
+            view.text = next
+            view.animate().alpha(1f).setDuration(220).start()
+        }.start()
+    }
+
+    private fun showZontesMore() {
+        val labels = arrayOf(
+            getString(R.string.lang_title),
+            getString(R.string.help_about),
+            getString(R.string.nav_settings),
+            getString(R.string.nav_trips),
+            getString(R.string.nav_garage),
+        )
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.zontes_more)
+            .setItems(labels) { _, which ->
+                when (which) {
+                    0 -> findViewById<View>(R.id.btn_language).performClick()
+                    1 -> AboutActivity.start(this)
+                    2 -> findViewById<View>(R.id.btn_setup).performClick()
+                    3 -> findViewById<View>(R.id.btn_trips_list).performClick()
+                    else -> findViewById<View>(R.id.btn_devices).performClick()
+                }
+            }
+            .show()
+    }
+
+    private fun refreshBtChip(phase: Phase) {
+        val linked = phase == Phase.JOINING_WIFI || phase == Phase.PXC_CONNECTING ||
+            phase == Phase.AA_VIDEO_LIVE || phase == Phase.STREAMING || phase == Phase.MIRRORING ||
+            phase == Phase.RECONNECTING
+        val icon = findViewById<android.widget.ImageView?>(R.id.zontes_bt) ?: return
+        icon.setColorFilter(ContextCompat.getColor(this, if (linked) R.color.nf_red else R.color.nf_muted))
+        icon.alpha = if (linked || phase.busy) 1f else 0.45f
+    }
+
     /** Mint-to-emerald fill. Material's tint would flatten this back to a solid color. */
     private fun applyConnectGradient() {
         val btn = connectBtn as? com.google.android.material.button.MaterialButton ?: return
         btn.backgroundTintList = null
-        btn.background = ContextCompat.getDrawable(this, R.drawable.bg_pill_gradient)
-        btn.setTextColor(ContextCompat.getColor(this, R.color.on_brand))
-        btn.iconTint = android.content.res.ColorStateList.valueOf(ContextCompat.getColor(this, R.color.on_brand))
+        btn.background = ContextCompat.getDrawable(this, R.drawable.bg_nf_cta)
+        btn.setTextColor(ContextCompat.getColor(this, R.color.nf_text))
+        btn.iconTint = android.content.res.ColorStateList.valueOf(ContextCompat.getColor(this, R.color.nf_text))
         btn.elevation = 18f * resources.displayMetrics.density
         if (android.os.Build.VERSION.SDK_INT >= 28) {
-            val glow = 0xFF3DFF9A.toInt()
+            val glow = 0xFFE50914.toInt()
             btn.outlineAmbientShadowColor = glow
             btn.outlineSpotShadowColor = glow
         }
@@ -1901,6 +1987,28 @@ class MainActivity : AppCompatActivity() {
             },
         )
         applyConnectGradient()
+        findViewById<TextView?>(R.id.zontes_conn)?.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (phase == Phase.ERROR || phase.busy || phase == Phase.STREAMING || phase == Phase.MIRRORING) {
+                    R.color.nf_red
+                } else {
+                    R.color.nf_muted
+                },
+            ),
+        )
+        crossfadeText(findViewById(R.id.zontes_conn), title)
+        crossfadeText(findViewById(R.id.zontes_hint), statusHint.text)
+        findViewById<TextView?>(R.id.btn_screen_mirror)?.apply {
+            text = if (phase.busy || phase == Phase.STREAMING || phase == Phase.MIRRORING) {
+                getString(R.string.main_stop)
+            } else {
+                getString(R.string.zontes_mirror)
+            }
+            setBackgroundResource(R.drawable.bg_nf_cta)
+            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.nf_text))
+        }
+        refreshBtChip(phase)
         updateButtonStates(phase)
     }
 

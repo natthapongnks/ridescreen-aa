@@ -47,7 +47,7 @@ object RideShare {
     private const val MAX_POINTS_PER_TRACK = 400
 
     private val BG = Color.parseColor("#18211B")
-    private val GOLD = Color.parseColor("#D1A955")
+    private val GOLD = Color.parseColor("#E50914")
     private val TEXT = Color.parseColor("#F1F4EC")
     private val MUTED = Color.parseColor("#AEBAAA")
 

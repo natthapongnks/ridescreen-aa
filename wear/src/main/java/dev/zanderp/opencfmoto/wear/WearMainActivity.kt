@@ -532,6 +532,6 @@ class WearMainActivity : ComponentActivity(), MessageClient.OnMessageReceivedLis
         private const val AMBIENT_STALE_MS = 90_000L
         private val COLOR_AMBER = Color.parseColor("#FFB300")
         private val COLOR_GREY = Color.parseColor("#9E9E9E")
-        private val COLOR_ACCENT = Color.parseColor("#D1A955")
+        private val COLOR_ACCENT = Color.parseColor("#E50914")
     }
 }

@@ -24,12 +24,13 @@ class ConnectionRingView @JvmOverloads constructor(
     private val arc = RectF()
     private var sweep = 12f
     private var failed = false
+    private var netflixRed = false
     private val mint = intArrayOf(
-        0xFF0B6B45.toInt(),
-        0xFF1FA971.toInt(),
-        0xFFB6FFD8.toInt(),
-        0xFF3DFF9A.toInt(),
-        0xFF0B6B45.toInt(),
+        0xFF6B0610.toInt(),
+        0xFFE50914.toInt(),
+        0xFFFF6B6B.toInt(),
+        0xFFE50914.toInt(),
+        0xFF6B0610.toInt(),
     )
     private val errorSweep = intArrayOf(
         0xFF8A3030.toInt(),
@@ -53,6 +54,20 @@ class ConnectionRingView @JvmOverloads constructor(
 
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
+    }
+
+    /** Splash pulse. Not a connection state. */
+    /** Splash uses Netflix red instead of the mint ride ring. */
+    fun useNetflixRed() {
+        netflixRed = true
+        rebuildShader()
+        invalidate()
+    }
+
+    fun setFraction(fraction: Float) {
+        sweep = (fraction * 360f).coerceIn(8f, 360f)
+        if (width > 0) rebuildShader()
+        invalidate()
     }
 
     fun setMarks(marks: List<ConnectionGuide.Mark>) {
@@ -83,7 +98,18 @@ class ConnectionRingView @JvmOverloads constructor(
         if (width == 0 || height == 0) return
         val cx = width / 2f
         val cy = height / 2f
-        val shader = SweepGradient(cx, cy, if (failed) errorSweep else mint, null)
+        val colors = when {
+            netflixRed -> intArrayOf(
+                0xFF6B0610.toInt(),
+                0xFFE50914.toInt(),
+                0xFFFF6B6B.toInt(),
+                0xFFE50914.toInt(),
+                0xFF6B0610.toInt(),
+            )
+            failed -> errorSweep
+            else -> mint
+        }
+        val shader = SweepGradient(cx, cy, colors, null)
         shader.setLocalMatrix(Matrix().apply { setRotate(-90f, cx, cy) })
         arcPaint.shader = shader
         glow.shader = shader

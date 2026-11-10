@@ -146,7 +146,7 @@ object YearInReview {
         val w = 1080; val h = 1920
         val out = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         val c = Canvas(out)
-        val gold = Color.parseColor("#D1A955"); val text = Color.parseColor("#F1F4EC"); val muted = Color.parseColor("#AEBAAA")
+        val gold = Color.parseColor("#E50914"); val text = Color.parseColor("#FFFFFF"); val muted = Color.parseColor("#B3B3B3")
         val p = Paint(Paint.ANTI_ALIAS_FLAG)
         p.shader = LinearGradient(0f, 0f, 0f, h.toFloat(), Color.parseColor("#22302A"), Color.parseColor("#111813"), Shader.TileMode.CLAMP)
         c.drawRect(0f, 0f, w.toFloat(), h.toFloat(), p)

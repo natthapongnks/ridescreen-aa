@@ -41,7 +41,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:text="--"
-                android:textColor="#D1A955"
+                android:textColor="#E50914"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
@@ -66,7 +66,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:text="--"
-                android:textColor="#D1A955"
+                android:textColor="#E50914"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
@@ -91,7 +91,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:text="--"
-                android:textColor="#D1A955"
+                android:textColor="#E50914"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
@@ -116,7 +116,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:text="--"
-                android:textColor="#D1A955"
+                android:textColor="#E50914"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
@@ -141,7 +141,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:text="--"
-                android:textColor="#D1A955"
+                android:textColor="#E50914"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
@@ -166,7 +166,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:text="--"
-                android:textColor="#D1A955"
+                android:textColor="#E50914"
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
@@ -188,7 +188,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:padding="4dp"
-        android:textColor="#D1A955"
+        android:textColor="#E50914"
         android:textSize="12sp"
         android:textStyle="bold"
         android:visibility="gone" />
